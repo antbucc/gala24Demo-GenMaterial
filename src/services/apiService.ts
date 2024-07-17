@@ -10,7 +10,7 @@ const apiClient_SK = axios.create({
 
 // Backend for the App to save data in the MongoDB
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5002', 
+    baseURL: 'https://gala24demo-api-production.up.railway.app', 
     headers: {
       'Content-Type': 'application/json',
     },
