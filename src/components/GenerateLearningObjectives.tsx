@@ -7,7 +7,7 @@ interface GenerateLearningObjectivesProps {
   context: string;
   level: number;
   materialUrl: string;
-  onNext: (selectedObjective: string, bloomLevel: number, materialData: any) => void;
+  onNext: (selectedObjective: string, bloomLevel: string, materialData: any) => void;
   materialData: any;
 }
 
@@ -34,7 +34,7 @@ const GenerateLearningObjectives: React.FC<GenerateLearningObjectivesProps> = ({
 
   const handleNext = () => {
     if (selectedObjective && selectedBloomLevel) {
-      onNext(selectedObjective, parseInt(selectedBloomLevel), materialData);
+      onNext(selectedObjective, selectedBloomLevel, materialData);
     }
   };
 

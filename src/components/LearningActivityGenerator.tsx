@@ -15,14 +15,14 @@ const LearningActivityGenerator: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState<string>('');
   const [selectedObjective, setSelectedObjective] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [bloomLevel, setBloomLevel] = useState<number>(1);
+  const [bloomLevel, setBloomLevel] = useState<string>('');
   const [materialData, setMaterialData] = useState<any>(null);
   const [context] = useState<string>('string'); 
   const [level] = useState<number>(0);  
   const [materialUrl, setMaterialUrl] = useState<string>('');  
 
 
-  const handleNextStep = (data: string, titleData?: string, materialData?: any, bloomLevelData?: number, newMaterialUrl?: string) => {
+  const handleNextStep = (data: string, titleData?: string, materialData?: any, bloomLevelData?: string, newMaterialUrl?: string) => {
     console.log("Moving to next step:", step);
     console.log('Next step data:', data, "URL:", newMaterialUrl);
     if (step === 0) {
@@ -32,7 +32,7 @@ const LearningActivityGenerator: React.FC = () => {
       setMaterialUrl(newMaterialUrl || '' );
     } else if (step === 1) {
       setSelectedObjective(data);
-      setBloomLevel(bloomLevelData || 1);
+      setBloomLevel(bloomLevelData || '');
     }
     setStep((prevStep) => prevStep + 1);
   };
@@ -64,7 +64,7 @@ const LearningActivityGenerator: React.FC = () => {
         </Stepper>
       </Box>
       <Paper elevation={3} style={{ padding: '20px', marginTop: '20px' }}>
-        {step === 0 && <AnalyzeMaterial onNext={(topic, materialData, newMaterialUrl) => handleNextStep(topic, '', materialData, 1, newMaterialUrl)} />}
+        {step === 0 && <AnalyzeMaterial onNext={(topic, materialData, newMaterialUrl) => handleNextStep(topic, '', materialData, bloomLevel, newMaterialUrl)} />}
         {step === 1 && (
           <GenerateLearningObjectives
             topic={selectedTopic}
