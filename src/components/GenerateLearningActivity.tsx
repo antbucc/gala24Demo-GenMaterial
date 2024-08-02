@@ -10,6 +10,7 @@ interface GenerateLearningActivityProps {
   bloomLevel: string;
   materialData: any;
   materialUrl: string;
+  themeTitle: string;
   onFinish: (activity: string) => void;
 }
 
@@ -30,6 +31,7 @@ const GenerateLearningActivity: React.FC<GenerateLearningActivityProps> = ({
   bloomLevel,
   materialData,
   materialUrl,
+  themeTitle,
   onFinish,
 }) => {
   const [activityResponse, setActivityResponse] = useState<any>(null);
@@ -58,7 +60,7 @@ const GenerateLearningActivity: React.FC<GenerateLearningActivityProps> = ({
     try {
       const params = {
         macroSubject: materialData.MacroSubject,
-        title: title,
+        title: themeTitle,
         level: level, // Include level here
         typeOfActivity: 0,
         learningObjective: objective,
@@ -116,9 +118,17 @@ const GenerateLearningActivity: React.FC<GenerateLearningActivityProps> = ({
     }
   };
 
+
+   // 'Plastic': '66ab571cc92cc90278b759a1',
+   // 'Detergents': '66ab5734c92cc90278b759a2',
+   // 'Bees': '66ab575fc92cc90278b759a3'
+
   const handleFinishMultipleChoice = async () => {
+  
     if (activityResponse && readingMaterial) {
       console.log("BLOOM LEVEL: "+bloomLevel);
+      console.log("TOPIC: "+materialData.MacroSubject);
+      console.log("SKILL: "+title);
       try {
         const activityData = {
           topic: topic,
@@ -131,6 +141,7 @@ const GenerateLearningActivity: React.FC<GenerateLearningActivityProps> = ({
           feedback: activityResponse.Plus,
           readingMaterial: readingMaterial,
           bloomLevel: bloomLevel,
+          skillIDs: [title]
         };
        await saveLearningActivity(activityData);
        console.log('Multiple-choice activity saved successfully');

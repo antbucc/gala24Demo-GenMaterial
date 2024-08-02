@@ -5,7 +5,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { generateTopics, saveTopics } from '../services/apiService';
 
 interface AnalyzeMaterialProps {
-  onNext: (selectedTopic: string, materialData: any, materialUrl: string) => void;
+  onNext: (selectedTopic: string, materialData: any, materialUrl: string, themeTitle: string) => void;
 }
 
 const AnalyzeMaterial: React.FC<AnalyzeMaterialProps> = ({ onNext }) => {
@@ -42,7 +42,7 @@ const AnalyzeMaterial: React.FC<AnalyzeMaterialProps> = ({ onNext }) => {
 
   const handleNext = () => {
     if (selectedTopic && isSaved) {
-      onNext(selectedTopic, materialData, materialUrl);
+      onNext(selectedTopic, materialData, materialUrl, themeTitle);
     }
   };
 

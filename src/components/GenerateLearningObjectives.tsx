@@ -7,11 +7,12 @@ interface GenerateLearningObjectivesProps {
   context: string;
   level: number;
   materialUrl: string;
-  onNext: (selectedObjective: string, bloomLevel: string, materialData: any) => void;
+  onNext: (selectedObjective: string, bloomLevel: string, materialData: any, themeTitle: string) => void;
   materialData: any;
+  themeTitle: string;
 }
 
-const GenerateLearningObjectives: React.FC<GenerateLearningObjectivesProps> = ({ topic, context, level, materialUrl, onNext, materialData }) => {
+const GenerateLearningObjectives: React.FC<GenerateLearningObjectivesProps> = ({ topic, context, level, materialUrl, onNext, materialData, themeTitle }) => {
   const [objectives, setObjectives] = useState<any>({});
   const [selectedObjective, setSelectedObjective] = useState<string>('');
   const [selectedBloomLevel, setSelectedBloomLevel] = useState<string>('');
@@ -34,7 +35,7 @@ const GenerateLearningObjectives: React.FC<GenerateLearningObjectivesProps> = ({
 
   const handleNext = () => {
     if (selectedObjective && selectedBloomLevel) {
-      onNext(selectedObjective, selectedBloomLevel, materialData);
+      onNext(selectedObjective, selectedBloomLevel, materialData, themeTitle);
     }
   };
 
