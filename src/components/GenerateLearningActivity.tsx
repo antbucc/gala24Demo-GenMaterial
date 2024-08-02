@@ -119,17 +119,23 @@ const GenerateLearningActivity: React.FC<GenerateLearningActivityProps> = ({
   };
 
 
-   // 'Plastic': '66ab571cc92cc90278b759a1',
-   // 'Detergents': '66ab5734c92cc90278b759a2',
-   // 'Bees': '66ab575fc92cc90278b759a3'
+  type SkillTitles = 'Plastic' | 'Detergents' | 'Bees';
 
-  const handleFinishMultipleChoice = async () => {
+  const skillIDMapping: Record<SkillTitles, string> = {
+    'Plastic': '66ab571cc92cc90278b759a1',
+    'Detergents': '66ab5734c92cc90278b759a2',
+    'Bees': '66ab575fc92cc90278b759a3'
+  };
   
+  const handleFinishMultipleChoice = async () => {
     if (activityResponse && readingMaterial) {
-      console.log("BLOOM LEVEL: "+bloomLevel);
-      console.log("TOPIC: "+materialData.MacroSubject);
-      console.log("SKILL: "+title);
+      console.log("BLOOM LEVEL: " + bloomLevel);
+      console.log("TOPIC: " + materialData.MacroSubject);
+      console.log("SKILL: " + title);
+  
       try {
+        const skillID = skillIDMapping[title as SkillTitles];
+  
         const activityData = {
           topic: topic,
           learningObjective: objective,
@@ -141,12 +147,13 @@ const GenerateLearningActivity: React.FC<GenerateLearningActivityProps> = ({
           feedback: activityResponse.Plus,
           readingMaterial: readingMaterial,
           bloomLevel: bloomLevel,
-          skillIDs: [title]
+          skillIDs: [skillID]
         };
-       await saveLearningActivity(activityData);
-       console.log('Multiple-choice activity saved successfully');
+  
+        await saveLearningActivity(activityData);
+        console.log('Multiple-choice activity saved successfully');
         toast.success("The activity has been saved correctly");
-       onFinish(JSON.stringify(activityData));
+        onFinish(JSON.stringify(activityData));
       } catch (error) {
         console.error('Error saving multiple-choice activity:', error);
       }
